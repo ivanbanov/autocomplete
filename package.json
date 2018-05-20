@@ -1,17 +1,29 @@
 {
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "lint": "node ./node_modules/eslint/bin/eslint.js ./src -c ./.eslintrc && node ./node_modules/flow-bin/cli.js"
   },
   "devDependencies": {
     "@babel/preset-flow": "7.0.0-beta.47",
+    "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
+    "babel-eslint": "8.2.3",
     "babel-loader": "7.1.4",
     "babel-plugin-transform-class-properties": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-env": "1.6.1",
+    "babel-preset-flow": "6.23.0",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-2": "6.24.1",
+    "eslint": "4.19.1",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-config-airbnb-base": "12.1.0",
+    "eslint-loader": "2.0.0",
+    "eslint-plugin-flowtype": "2.46.3",
+    "eslint-plugin-import": "2.12.0",
+    "eslint-plugin-react": "7.8.2",
+    "flow-bin": "0.72.0",
     "html-webpack-plugin": "3.2.0",
     "react-hot-loader": "4.2.0",
     "webpack": "4.8.3",

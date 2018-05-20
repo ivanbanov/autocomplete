@@ -1,0 +1,8 @@
+[include]
+./src/
+./node_modules/
+
+[ignore]
+./**/__tests__/
+./dist/
+./*

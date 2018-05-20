@@ -1,0 +1,58 @@
+{
+  "parser": "babel-eslint",
+
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+
+  "plugins": [
+    "react",
+    "flowtype"
+  ],
+
+  "extends": [
+    "airbnb-base",
+    "plugin:flowtype/recommended"
+  ],
+
+  "rules": {
+    // Possible Errors
+    "comma-dangle": [2, "always-multiline"],
+    "no-cond-assign": [2, "always"],
+    "class-methods-use-this": 0,
+    "no-underscore-dangle": 0,
+
+    // Require braces in arrow function body
+    "arrow-body-style": 0,
+
+    // Stylistic Issues
+    "key-spacing": [2, {
+      "mode": "minimum",
+      "beforeColon": false,
+      "afterColon": true
+    }],
+    "space-before-function-paren": [2, "never"],
+    "func-names": 0,
+    "max-len": [2, 120, 2],
+
+    // React
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+
+    // Resolver
+    "import/no-extraneous-dependencies": 0,
+    "import/extensions": 0,
+    "import/no-unresolved": 0,
+    "import/prefer-default-export": 0
+  }
+}
