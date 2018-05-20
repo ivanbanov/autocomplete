@@ -1,4 +1,7 @@
+// @flow
+
 import React from 'react';
+import Autocomplete from './Autocomplete';
 import { hot } from 'react-hot-loader';
 
 class App extends React.Component {
@@ -6,7 +9,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>test</div>
+      <Autocomplete />
     );
   }
 }
