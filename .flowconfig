@@ -5,4 +5,3 @@
 [ignore]
 ./**/__tests__/
 ./dist/
-./*

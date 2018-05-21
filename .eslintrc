@@ -49,10 +49,14 @@
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
 
+    // Flow
+    "flowtype/space-before-type-colon": 0,
+    "flowtype/space-after-type-colon": 0,
+
     // Resolver
     "import/no-extraneous-dependencies": 0,
     "import/extensions": 0,
     "import/no-unresolved": 0,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
   }
 }
