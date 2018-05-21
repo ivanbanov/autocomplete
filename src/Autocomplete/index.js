@@ -133,15 +133,16 @@ class Autocomplete extends React.Component<Props, State> {
           break;
 
         case 'Enter':
+          if (typeof this.props.onSelect === 'function') {
+            this.props.onSelect(results[activeIndex]);
+          }
+
           this.setState({
             activeIndex: -1,
             results: [],
             value: results[activeIndex],
           });
 
-          if (typeof this.props.onSelect === 'function') {
-            this.props.onSelect(value);
-          }
           break;
 
         case 'Escape':
