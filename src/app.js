@@ -9,22 +9,34 @@ class App extends React.Component<*> {
 
   render() {
     return (
-      <Autocomplete
-        data={[
-          'Brazil',
-          'China',
-          'Colombia',
-          'England',
-          'Germany',
-          'Italy',
-          'Korea',
-          'Netherlands',
-          'Netherlands',
-          'Spain',
-          'Switzerland',
-          'United States',
-        ]}
-      />
+      <div>
+        <h2>Static data <small>(countries)</small></h2>
+        <Autocomplete
+          data={[
+            'Brazil',
+            'China',
+            'Colombia',
+            'England',
+            'Germany',
+            'Italy',
+            'Korea',
+            'Netherlands',
+            'Spain',
+            'Switzerland',
+            'United States',
+          ]}
+        />
+
+        <br />
+        <br />
+
+        <h2>Dynamic data <small>(restaurants)</small></h2>
+        <Autocomplete
+          data="https://opentable.herokuapp.com/api/restaurants?name="
+          parseResults={json => (json.restaurants || []).map(item => item.name)}
+          maxItems={10}
+        />
+      </div>
     );
   }
 }

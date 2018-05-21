@@ -6,11 +6,11 @@ import Container from './Container';
 import Input from './Input';
 import Results from './Results';
 import ResultItem from './ResultItem';
-import debounce from '../utils/debounce';
+
+const NO_RESULTS = 'No results';
 
 type Props = {
   data: Array<string> | string,
-  renderItem?: Function,
   value?: string,
   parseResults?: Function,
   maxItems?: number,
@@ -82,12 +82,21 @@ class Autocomplete extends React.Component<Props, State> {
       this.setState({ value });
 
       if (this.isRemoteData()) {
-        this.setState({ isLoading: true });
+        this.setState({
+          isLoading: true,
+          results: ['Loading...'],
+        });
 
         this.getResults().then(json => {
+          let results = parseResults ? parseResults(json) : [];
+
+          if (!results.length) {
+            results = [NO_RESULTS];
+          }
+
           this.setState({
             isLoading: false,
-            results: (parseResults ? parseResults(json) : []).slice(0, maxItems),
+            results: results.slice(0, maxItems),
           });
         });
 
@@ -95,7 +104,7 @@ class Autocomplete extends React.Component<Props, State> {
       }
 
       const dataArr = Array.isArray(data) ? data : [];
-      const filteredResults = value === ''
+      let filteredResults = value === ''
         ? []
         : dataArr
           .filter(item => {
@@ -103,6 +112,10 @@ class Autocomplete extends React.Component<Props, State> {
             return regexp.test(item);
           })
           .slice(0, maxItems);
+
+      if (!filteredResults.length) {
+        filteredResults = [NO_RESULTS];
+      }
 
       this.setState({ results: filteredResults });
     }
@@ -175,7 +188,7 @@ class Autocomplete extends React.Component<Props, State> {
       return (
         <Container>
           <Input
-            onChange={this.isRemoteData() ? debounce(this.onChange) : this.onChange}
+            onChange={this.onChange}
             onBlur={this.onBlur}
             onKeyDown={this.onKeyDown}
             innerRef={input => this.input = input}

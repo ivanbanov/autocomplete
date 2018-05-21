@@ -15,7 +15,7 @@ export default () => injectGlobal`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #fff, #ddd);
+    background: linear-gradient(135deg, #fff, #f0f0f0);
     font-family: Helvetica, Arial, sans-serif;
   }
 

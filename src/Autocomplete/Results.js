@@ -12,6 +12,7 @@ const Results: ComponentType<Props> =
     width: 100%;
     border: 1px solid #bbb;
     border-top: none;
+    z-index: 9;
   `;
 
 Results.displayName = 'Autocomplete.Results';
