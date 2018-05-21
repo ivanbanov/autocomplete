@@ -3,19 +3,16 @@
 import styled from 'styled-components';
 import { type ComponentType } from 'react';
 
-type Props = {
-  fluid?: boolean,
-};
+type Props = {};
 
 const Input: ComponentType<Props> =
   styled.input.attrs({
     type: 'search',
   })`
     border: 1px solid #ddd;
-    padding: 1rem;
-    width: ${props => (props.fluid ? '100%' : 'auto')};
+    padding: .5rem;
+    width: 100%;
     outline: none;
-    border-radius: 3px;
 
     &:focus {
       border-color: #bbb;

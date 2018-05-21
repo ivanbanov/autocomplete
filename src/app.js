@@ -24,7 +24,6 @@ class App extends React.Component<*> {
           'Switzerland',
           'United States',
         ]}
-        value="xxx"
       />
     );
   }

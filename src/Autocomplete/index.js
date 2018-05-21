@@ -1,16 +1,16 @@
 // @flow
 
-import React from 'react';
+import React, { type Element } from 'react';
 import removeAccents from 'remove-accents';
 import Container from './Container';
 import Input from './Input';
 import Results from './Results';
+import ResultItem from './ResultItem';
 import debounce from '../utils/debounce';
 
 type Props = {
-  data: Array<*> | string,
+  data: Array<string> | string,
   renderItem?: Function,
-  highlightColor?: string,
   value?: string,
   parseResults?: Function,
   maxItems?: number,
@@ -20,6 +20,7 @@ type State = {
   results: Array<*>,
   value: ?string,
   isLoading: boolean,
+  activeIndex: number,
 }
 
 class Autocomplete extends React.Component<Props, State> {
@@ -31,22 +32,23 @@ class Autocomplete extends React.Component<Props, State> {
       results: [],
       value: null,
       isLoading: false,
+      activeIndex: -1,
     };
 
     constructor(props: Props) {
       super(props);
 
+      this.state.value = this.props.value || '';
+
       (this: any).onBlur = this.onBlur.bind(this);
       (this: any).onChange = this.onChange.bind(this);
       (this: any).onKeyDown = this.onKeyDown.bind(this);
+      (this: any).renderItem = this.renderItem.bind(this);
       (this: any).getResults = this.getResults.bind(this);
       (this: any).isRemoteData = this.isRemoteData.bind(this);
     }
 
     getResults: Function;
-    onBlur: Function;
-    onChange: Function;
-    onKeyDown: Function;
     input: ?HTMLInputElement;
 
     isRemoteData() {
@@ -68,18 +70,16 @@ class Autocomplete extends React.Component<Props, State> {
       return null;
     }
 
-    onChange(e: Event): void {
+    onChange(e: any): void {
       const {
         data = [],
         parseResults,
-        maxItems,
+        maxItems = 5,
       } = this.props;
 
-      const { target } = e;
+      const { value } = e.target;
 
-      if (target instanceof HTMLInputElement) {
-        this.setState({ value: target.value });
-      }
+      this.setState({ value });
 
       if (this.isRemoteData()) {
         this.setState({ isLoading: true });
@@ -94,55 +94,97 @@ class Autocomplete extends React.Component<Props, State> {
         return;
       }
 
-      if (!(target instanceof HTMLInputElement)) {
-        return;
-      }
-
       const dataArr = Array.isArray(data) ? data : [];
-      const filteredResults = target.value === ''
+      const filteredResults = value === ''
         ? []
-        : dataArr.filter(item => {
-          const regexp = new RegExp(removeAccents(target.value), 'ig');
-          return regexp.test(item);
-        })
+        : dataArr
+          .filter(item => {
+            const regexp = new RegExp(removeAccents(value), 'ig');
+            return regexp.test(item);
+          })
           .slice(0, maxItems);
 
       this.setState({ results: filteredResults });
     }
 
-    onKeyDown(e: Event): void {
+    onKeyDown(e: any): void {
+      const { activeIndex, results } = this.state;
+      const { value } = e.target;
 
+      if (!results.length) {
+        return;
+      }
+
+      switch (e.key) {
+        case 'ArrowUp':
+          this.setState({
+            activeIndex: (activeIndex === 0) ? 0 : (activeIndex - 1),
+          });
+          break;
+
+        case 'ArrowDown':
+          this.setState({
+            activeIndex: (activeIndex === results.length - 1) ? activeIndex : (activeIndex + 1),
+          });
+          break;
+
+        case 'Enter':
+          this.setState({
+            activeIndex: -1,
+            results: [],
+            value: results[activeIndex],
+          });
+          break;
+
+        case 'Escape':
+          this.setState({
+            activeIndex: -1,
+            results: [],
+          });
+          break;
+
+        default:
+          this.setState({ value });
+      }
     }
 
     onBlur(): void {
-      this.setState({
-        results: [],
-      });
+      setTimeout(() => {
+        this.setState({ results: [] });
+      }, 50);
+    }
+
+    renderItem(item: string, key: number = 1): Element<*> {
+      return (
+        <ResultItem
+          key={key}
+          onClick={() => this.setState({ value: item })}
+          isActive={key === this.state.activeIndex}
+        >
+          {item}
+        </ResultItem>
+      );
     }
 
     render() {
       const {
         results,
-        value: stateValue,
+        value,
       } = this.state;
-
-      const {
-        renderItem = (item, i) => <div key={i}>{item}</div>,
-        value: propsValue,
-      } = this.props;
 
       return (
         <Container>
           <Input
             onChange={this.isRemoteData() ? debounce(this.onChange) : this.onChange}
             onBlur={this.onBlur}
-            innerRef={node => this.input = node}
-            value={stateValue !== null ? stateValue : propsValue}
+            onKeyDown={this.onKeyDown}
+            innerRef={input => this.input = input}
+            value={value}
           />
           {
-            results &&
+            !!results.length &&
             <Results>
-              { results.map(renderItem) }
+              { results.map(this.renderItem) }
             </Results>
           }
         </Container>

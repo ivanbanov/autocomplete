@@ -21,7 +21,8 @@ export default () => injectGlobal`
 
   #root {
     min-height: 100vh;
-    min-width: 100vw;
+    width: 100vw;
+    max-width: 550px;
     padding: 1rem;
   }
 `;
