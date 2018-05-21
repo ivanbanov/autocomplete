@@ -7,13 +7,12 @@ import Input from './Input';
 import Results from './Results';
 import ResultItem from './ResultItem';
 
-const NO_RESULTS = 'No results';
-
 type Props = {
   data: Array<string> | string,
   value?: string,
   parseResults?: Function,
   maxItems?: number,
+  onSelect?: Function,
 };
 
 type State = {
@@ -88,11 +87,7 @@ class Autocomplete extends React.Component<Props, State> {
         });
 
         this.getResults().then(json => {
-          let results = parseResults ? parseResults(json) : [];
-
-          if (!results.length) {
-            results = [NO_RESULTS];
-          }
+          const results = parseResults ? parseResults(json) : [];
 
           this.setState({
             isLoading: false,
@@ -104,7 +99,7 @@ class Autocomplete extends React.Component<Props, State> {
       }
 
       const dataArr = Array.isArray(data) ? data : [];
-      let filteredResults = value === ''
+      const filteredResults = value === ''
         ? []
         : dataArr
           .filter(item => {
@@ -112,10 +107,6 @@ class Autocomplete extends React.Component<Props, State> {
             return regexp.test(item);
           })
           .slice(0, maxItems);
-
-      if (!filteredResults.length) {
-        filteredResults = [NO_RESULTS];
-      }
 
       this.setState({ results: filteredResults });
     }
@@ -147,6 +138,10 @@ class Autocomplete extends React.Component<Props, State> {
             results: [],
             value: results[activeIndex],
           });
+
+          if (typeof this.props.onSelect === 'function') {
+            this.props.onSelect(value);
+          }
           break;
 
         case 'Escape':
@@ -171,7 +166,13 @@ class Autocomplete extends React.Component<Props, State> {
       return (
         <ResultItem
           key={key}
-          onClick={() => this.setState({ value: item })}
+          onClick={() => {
+            this.setState({ value: item });
+
+            if (typeof this.props.onSelect === 'function') {
+              this.props.onSelect(item);
+            }
+          }}
           isActive={key === this.state.activeIndex}
         >
           {item}

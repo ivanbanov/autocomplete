@@ -25,6 +25,7 @@ class App extends React.Component<*> {
             'Switzerland',
             'United States',
           ]}
+          onSelect={item => alert(item)}
         />
 
         <br />
@@ -35,6 +36,7 @@ class App extends React.Component<*> {
           data="https://opentable.herokuapp.com/api/restaurants?name="
           parseResults={json => (json.restaurants || []).map(item => item.name)}
           maxItems={10}
+          onSelect={item => alert(item)}
         />
       </div>
     );

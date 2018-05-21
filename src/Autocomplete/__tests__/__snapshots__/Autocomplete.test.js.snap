@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Autocomplete should render properly 1`] = `
+<div
+  className="Container-gZqETv gARBHO"
+>
+  <input
+    className="Input-hxTtdt iQCqrY"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    type="search"
+    value=""
+  />
+</div>
+`;

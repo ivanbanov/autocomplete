@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
-    "test": "echo \"No test specified\" && exit 0",
+    "test": "node ./node_modules/jest/bin/jest.js",
     "lint": "node ./node_modules/eslint/bin/eslint.js ./src -c ./.eslintrc && node ./node_modules/flow-bin/cli.js"
   },
   "devDependencies": {
@@ -17,6 +17,8 @@
     "babel-preset-flow": "6.23.0",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-2": "6.24.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "4.19.1",
     "eslint-config-airbnb": "16.1.0",
     "eslint-config-airbnb-base": "12.1.0",
@@ -26,17 +28,27 @@
     "eslint-plugin-react": "7.8.2",
     "flow-bin": "0.72.0",
     "html-webpack-plugin": "3.2.0",
+    "jest": "22.4.4",
     "react-hot-loader": "4.2.0",
+    "react-test-renderer": "^16.3.2",
     "webpack": "4.8.3",
     "webpack-cli": "2.1.3",
     "webpack-dev-server": "3.1.4"
   },
   "dependencies": {
-    "debounce": "^1.1.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "remove-accents": "^0.4.2",
     "styled-components": "3.2.6",
     "styled-normalize": "4.0.0"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "./"
+    ],
+    "roots": [
+      "src"
+    ]
   }
 }
