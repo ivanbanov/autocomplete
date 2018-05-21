@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
   entry: ['./src/index.js'],
@@ -8,15 +9,15 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
-      }
-    ]
+        use: ['babel-loader'],
+      },
+    ],
   },
   devtool: 'source-map',
   output: {
-    path: __dirname + '/dist',
+    path: path.join(__dirname, '/dist'),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -25,6 +26,6 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     overlay: true,
-    hot: true
-  }
+    hot: true,
+  },
 };

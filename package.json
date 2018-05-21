@@ -5,14 +5,14 @@
     "lint": "node ./node_modules/eslint/bin/eslint.js ./src -c ./.eslintrc && node ./node_modules/flow-bin/cli.js"
   },
   "devDependencies": {
-    "@babel/preset-flow": "7.0.0-beta.47",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.3",
     "babel-loader": "7.1.4",
-    "babel-plugin-styled-components": "^1.5.1",
+    "babel-plugin-styled-components": "1.5.1",
     "babel-plugin-transform-class-properties": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-plugin-transform-runtime": "6.23.0",
     "babel-preset-env": "1.6.1",
     "babel-preset-flow": "6.23.0",
     "babel-preset-react": "6.24.1",
@@ -32,8 +32,10 @@
     "webpack-dev-server": "3.1.4"
   },
   "dependencies": {
+    "debounce": "^1.1.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
+    "remove-accents": "^0.4.2",
     "styled-components": "3.2.6",
     "styled-normalize": "4.0.0"
   }

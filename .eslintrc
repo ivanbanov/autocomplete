@@ -34,6 +34,8 @@
 
     // Require braces in arrow function body
     "arrow-body-style": 0,
+    "arrow-parens": 0,
+    "no-return-assign": 0,
 
     // Stylistic Issues
     "key-spacing": [2, {
