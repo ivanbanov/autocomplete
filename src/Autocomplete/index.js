@@ -7,7 +7,10 @@ class Autocomplete extends React.Component {
     static displayName = 'Autocomplete';
 
     render() {
-      return <Input foo='foo' />;
+      return [
+        <Input fluid />,
+        <Input fluid />,
+      ];
     }
 }
 
