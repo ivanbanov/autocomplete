@@ -87,7 +87,7 @@ describe('Autocomplete', () => {
       <Autocomplete
         data={['foo1', 'foo2']}
         onSelect={value => {
-          expect(value).toEqual('foo')
+          expect(value).toEqual('foo');
           fn();
         }}
       />
