@@ -1,5 +1,8 @@
 # Autocomplete
 
+## Demo
+![](./example.gif)
+
 ## Setup
 1. Clone this project
 ```
