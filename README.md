@@ -40,11 +40,11 @@ Callback function for the select action
 
 
 ##  Technical specs
-- *Styles*: StyledComponents
-- *Tests*: Jest + Enzyme
-- *Typesystem*: Flowtype
-- *Lint*: ESlint
-- *BuildTool*: Webpack
+- **Styles**: StyledComponents
+- **Tests**: Jest + Enzyme
+- *Typesystem**: Flowtype
+- **Lint**: ESlint
+- **BuildTool**: Webpack
 
 ## Tasks
 Compile and start the server on `http://localhost:3000/`
