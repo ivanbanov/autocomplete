@@ -23,8 +23,8 @@ Then access [http://localhost:8080/](http://localhost:8080/)
 
 ## Component properties
 
-### data : <Array<*> | string> (required)
-List of values or url to get remote data
+### data : <Array<string> | string> (required)
+List of strings or url to get remote data
 
 ### value : string
 Initial value of the input
