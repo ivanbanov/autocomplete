@@ -9,7 +9,23 @@ class App extends React.Component<*> {
 
   render() {
     return (
-      <Autocomplete />
+      <Autocomplete
+        data={[
+          'Brazil',
+          'China',
+          'Colombia',
+          'England',
+          'Germany',
+          'Italy',
+          'Korea',
+          'Netherlands',
+          'Netherlands',
+          'Spain',
+          'Switzerland',
+          'United States',
+        ]}
+        value="xxx"
+      />
     );
   }
 }
