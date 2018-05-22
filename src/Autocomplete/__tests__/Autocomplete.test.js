@@ -9,8 +9,9 @@ import ResultItem from '../ResultItem';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-function simulateChange(component, str) {
-  component.find(Input).simulate('change', {
+function simulate(event, component, str, eventConfig = {}) {
+  component.find(Input).simulate(event, {
+    ...eventConfig,
     target: { value: str },
   });
 }
@@ -51,7 +52,7 @@ describe('Autocomplete', () => {
       <Autocomplete data={['foo', 'bar']} />
     );
 
-    simulateChange(component, 'foo');
+    simulate('change', component, 'foo');
 
     expect(component.find(Results)).toHaveLength(1);
     expect(component.find(Results).dive().find(ResultItem)).toHaveLength(1);
@@ -62,7 +63,7 @@ describe('Autocomplete', () => {
       <Autocomplete data={['foo', 'foo']} maxItems={1} />
     );
 
-    simulateChange(component, 'foo');
+    simulate('change', component, 'foo');
 
     expect(component.find(Results).dive().find(ResultItem)).toHaveLength(1);
   });
@@ -74,7 +75,7 @@ describe('Autocomplete', () => {
       <Autocomplete data={['foo', 'bar']} onSelect={fn} />
     );
 
-    simulateChange(component, 'foo');
+    simulate('change', component, 'foo');
     component.find(ResultItem).first().simulate('click');
 
     expect(fn).toHaveBeenCalled();
@@ -93,26 +94,20 @@ describe('Autocomplete', () => {
       />
     );
 
-    simulateChange(component, 'foo');
-
-    component.find(Input).simulate('keyDown', {
-      key: 'ArrowDown', target: { value: 'foo' },
-    });
-    component.find(Input).simulate('keyDown', {
-      key: 'ArrowDown', target: { value: 'foo' },
-    });
+    simulate('change', component, 'foo');
+    simulate('keyDown', component, 'foo', { key: 'ArrowDown' });
+    simulate('keyDown', component, 'foo', { key: 'ArrowDown' });
 
     expect(component.find(ResultItem).at(1).prop('isActive')).toEqual(true);
 
-    component.find(Input).simulate('keyDown', {
-      key: 'ArrowUp', target: { value: 'foo' },
-    });
+    simulate('change', component, 'foo');
+    simulate('keyDown', component, 'foo', { key: 'ArrowDown' });
+    simulate('keyDown', component, 'foo', { key: 'ArrowDown' });
+    simulate('keyDown', component, 'foo', { key: 'ArrowUp' });
 
     expect(component.find(ResultItem).at(0).prop('isActive')).toEqual(true);
 
-    component.find(Input).simulate('keyDown', {
-      key: 'Enter', target: { value: 'foo' },
-    });
+    simulate('keyDown', component, 'foo', { key: 'Enter' });
 
     expect(fn).toHaveBeenCalled();
   });
